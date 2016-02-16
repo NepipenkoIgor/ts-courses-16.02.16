@@ -7,6 +7,9 @@
     },
     "exclude": [
         "node_modules",
-        "**/*/class-work"
+        "lesson1/class-work",
+        "lesson2/class-work",
+        "lesson3/class-work",
+        "lesson4/class-work"
     ]
 }
