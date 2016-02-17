@@ -6,6 +6,10 @@
         "sourceMap": false
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "lesson1/class-work",
+        "lesson2/class-work",
+        "lesson3/class-work",
+        "lesson4/class-work"
     ]
 }
