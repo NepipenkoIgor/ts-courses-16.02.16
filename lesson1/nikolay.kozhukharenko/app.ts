@@ -1,6 +1,6 @@
-type menuList = { title: string, items?: menuList | { title: string } }[]
+type menuListItems = { title: string, items?: menuListItems | { title: string } }[]
 
-let firstMenu:menuList = [
+let firstMenu:menuListItems = [
     {
         title: 'Животные', items: [
         {
@@ -38,9 +38,9 @@ let firstMenu:menuList = [
 ];
 
 class ContextMenu {
-    private menuItems:menuList;
+    private menuItems:menuListItems;
     private requireMenu:HTMLElement;
-    constructor(menuItems: menuList, requireMenu: HTMLElement) {
+    constructor(menuItems: menuListItems, requireMenu: HTMLElement) {
         this.menuItems = menuItems;
         this.requireMenu = requireMenu;
         this.buildMenuTree(this.menuItems);
@@ -49,7 +49,7 @@ class ContextMenu {
     private addToggleToMenu = ():void => {
         console.log('add toggle');
     };
-    private buildMenuTree = (menuItems: menuList):void => {
+    private buildMenuTree = (menuItems: menuListItems):void => {
         console.log('building menu. menuItems', menuItems);
     };
 }
