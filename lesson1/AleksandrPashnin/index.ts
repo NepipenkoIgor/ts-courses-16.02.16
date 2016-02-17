@@ -1,4 +1,8 @@
 type MenuItem = { title: string, items?: typeof MenuItem[] };
+/**
+ * var MenuItem :{ title: string, items?: typeof MenuItem[] };
+ * let menuItems: typeof MenuItem[]
+ * */
 
 let menuItems: MenuItem[] = [
   {
