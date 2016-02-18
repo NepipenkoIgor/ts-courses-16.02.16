@@ -49,28 +49,37 @@ let firstMenu:menuListItems = [
 class ContextMenu {
     private menuItems:menuListItems;
     private requireMenu:HTMLElement;
+    private menu:HTMLElement;
     constructor(menuItems: menuListItems, requireMenu: HTMLElement) {
         this.menuItems = menuItems;
         this.requireMenu = requireMenu;
-        let menu = this.buildMenuTree(this.menuItems);
-        requireMenu.appendChild(menu);
-        console.log('menu', menu);
-        this.addToggleToMenu();
+        this.menu = this.buildMenuTree(this.menuItems);
+        this.requireMenu.appendChild(this.menu);
+        this.addToggleToMenu(this.requireMenu);
     }
-    private addToggleToMenu = ():void => {
-        console.log('add toggle');
-    };
-    private buildMenuTree = (menuItems: menuListItems):HTMLElement => {
-        let menuContainer = document.createElement('ul');
-        let menuItemContainer:HTMLElement;
-        for (let item of menuItems) {
-            menuItemContainer =  document.createElement('li');
-            if (item.hasOwnProperty('items')) {
-                menuItemContainer.appendChild(this.buildMenuTree(item.items));
-            } else {
-                menuItemContainer.innerHTML = `<li><a>${item.title}</a></li>`;
+    private addToggleToMenu = (menu):void => {
+        menu.onclick = ((e):void => {
+            let target = <HTMLElement>e.target;
+            if (target.classList.contains('title')) {
+                let parenLi = <HTMLElement>target.parentNode;
+                parenLi.classList.toggle('menu-open');
             }
-            menuContainer.appendChild(menuItemContainer);
+        });
+    };
+    private buildMenuTree = (menuItems: menuListItems): HTMLElement => {
+        let menuContainer = document.createElement('nav');
+        for (let item of menuItems) {
+            let menuListContainer = document.createElement('ul');
+            let menuItemContainer =  document.createElement('li');
+            let menuTitleContainer = document.createElement('a');
+            menuTitleContainer.innerText = item.title;
+            menuItemContainer.appendChild(menuTitleContainer);
+            menuListContainer.appendChild(menuItemContainer);
+            if (item.hasOwnProperty('items')) {
+                menuTitleContainer.classList.add('title');
+                menuListContainer.appendChild(this.buildMenuTree(item.items));
+            }
+            menuContainer.appendChild(menuListContainer);
         }
         return menuContainer;
     };

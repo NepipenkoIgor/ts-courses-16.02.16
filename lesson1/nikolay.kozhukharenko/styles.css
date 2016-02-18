@@ -36,9 +36,9 @@
     margin-right: 5px;
 }
 
-.menu ul li ul{
+nav nav{
     display:none;
 }
-.menu .menu-open>ul {
+.menu-open + nav {
     display:block;
 }
