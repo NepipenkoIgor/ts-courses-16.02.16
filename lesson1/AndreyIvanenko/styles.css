@@ -1,0 +1,28 @@
+/* Styles go here */
+
+.menu li.menu__with-submenu ul {
+    display:none;
+}
+
+.menu li.menu__with-submenu.menu__active > ul {
+    display:block;
+}
+
+.menu li {
+    list-style-type: none;
+}
+
+.menu li.menu__with-submenu > a {
+    cursor: pointer;
+}
+
+.menu li a:after {
+    margin: 0 0 0 2px;
+}
+
+.menu li.menu__with-submenu > a:after {
+    content: '+';
+}
+.menu li.menu__with-submenu.menu__active > a:after {
+    content: '-';
+}
