@@ -1,0 +1,22 @@
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NepipenkoIgor/ts-courses-16.02.16.git"
+  },
+  "author": "Igor Nepipenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NepipenkoIgor/ts-courses-16.02.16/issues"
+  },
+  "homepage": "https://github.com/NepipenkoIgor/ts-courses-16.02.16#readme",
+  "dependencies": {
+    "tslint": "3.3.0"
+  }
+}
