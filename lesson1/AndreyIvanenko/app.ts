@@ -69,7 +69,9 @@ const ul:Element = generateMenu(menu);
 ul.addEventListener('click', (e:MouseEvent) => {
     const target = e.target as Element & {closest: (selector:string) => Element};
     const li = target.closest('li');
-    li.classList.toggle(MENU_OPEN);
+    if(li.classList.contains(MENU_WITH_SUBMENU) === true) {
+        li.classList.toggle(MENU_OPEN);
+    }
 });
 
 documentFragment.appendChild(ul);
