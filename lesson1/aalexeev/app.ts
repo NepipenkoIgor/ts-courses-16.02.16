@@ -36,10 +36,9 @@ let menu:menuList = [
     ]
     }
 ];
-
+/* no-shadowed-variable -> false либо по другому назвать*/
 function generateMenu(menu:menuList):string {
     let res = '';
-
     for (let item of menu) {
         let title = item.title;
         let items = item.items;
@@ -60,7 +59,10 @@ let res = generateMenu(menu);
 let menuContainer = document.querySelector('#menu') as HTMLElement;
 menuContainer.innerHTML = menuContainer.innerHTML + `<ul class="menu">${res}</ul>`;
 
-menuContainer.addEventListener('click', function(ev:MouseEvent) {
+/*use arrow function
+ * (ev:MouseEvent):void => {}
+ * */
+menuContainer.addEventListener('click', function (ev:MouseEvent) {
     let targ = ev.target as HTMLElement;
     if (targ.classList.contains('js-title')) {
         let parent = targ.parentNode as HTMLElement;

@@ -1,4 +1,5 @@
 //@see https://github.com/jonathantneal/closest/blob/master/closest.js
+
 (function (ELEMENT) {
     ELEMENT.matches = ELEMENT.matches || ELEMENT.mozMatchesSelector || ELEMENT.msMatchesSelector || ELEMENT.oMatchesSelector || ELEMENT.webkitMatchesSelector;
     ELEMENT.closest = ELEMENT.closest || function closest(selector) {
@@ -13,6 +14,7 @@
         };
 }(Element.prototype));
 
+/*use let or const*/
 var menuList:{title:string, items?: typeof menuList}[];
 var menu:typeof menuList = [{
     title: 'Животные', items: [{
@@ -67,9 +69,10 @@ const generateMenu = (list:typeof menuList):Element => {
 const documentFragment:DocumentFragment = document.createDocumentFragment();
 const ul:Element = generateMenu(menu);
 ul.addEventListener('click', (e:MouseEvent) => {
+    /* Хорошо бы коментировать такие решения для других студентов*/
     const target = e.target as Element & {closest: (selector:string) => Element};
     const li = target.closest('li');
-    if(li.classList.contains(MENU_WITH_SUBMENU) === true) {
+    if (li.classList.contains(MENU_WITH_SUBMENU) === true) {
         li.classList.toggle(MENU_OPEN);
     }
 });

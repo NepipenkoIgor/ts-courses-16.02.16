@@ -34,6 +34,7 @@ var menu = [
         ]
     }
 ];
+/* no-shadowed-variable -> false либо по другому назвать*/
 function generateMenu(menu) {
     var res = '';
     for (var _i = 0, menu_1 = menu; _i < menu_1.length; _i++) {
@@ -54,6 +55,9 @@ function generateMenu(menu) {
 var res = generateMenu(menu);
 var menuContainer = document.querySelector('#menu');
 menuContainer.innerHTML = menuContainer.innerHTML + ("<ul class=\"menu\">" + res + "</ul>");
+/*use arrow function
+ * (ev:MouseEvent):void => {}
+ * */
 menuContainer.addEventListener('click', function (ev) {
     var targ = ev.target;
     if (targ.classList.contains('js-title')) {

@@ -4,6 +4,7 @@
 
 type TMenuItem = {title: string; items?: Array<TMenuItem>};
 
+/*use let or const*/
 var menuList: Array<TMenuItem> = [
     {
         title: 'Животные', items: [
@@ -40,7 +41,7 @@ var menuList: Array<TMenuItem> = [
     ]
     }
 ];
-
+/*Лучше было использовать одну рекурсию без оберток */
 function generateMenu<T extends TMenuItem>(list: Array<T>):string {
     let generateHTMLFromItem = (item: T): string => {
             let result: string = `<ul>`;

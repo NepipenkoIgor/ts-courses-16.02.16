@@ -1,3 +1,6 @@
+/* если работаешь в области декларирования типов typeof не нужен
+* type MenuItem = { title: string, items?: MenuItem[] }
+* */
 type MenuItem = { title: string, items?: typeof MenuItem[] };
 /**
  * var MenuItem :{ title: string, items?: typeof MenuItem[] };
@@ -46,7 +49,7 @@ let menuItems: MenuItem[] = [
     ]
   }
 ];
-
+/* no-shadowed-variable -> false либо по другому назвать*/
 function generateMenu(menuItems: MenuItem[]): void {
 
   let menu: HTMLElement = document.querySelector('.menu') as HTMLElement;

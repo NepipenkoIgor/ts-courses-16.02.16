@@ -45,7 +45,7 @@ let firstMenu:menuListItems = [
         title: 'Звери'
     }
 ];
-
+/*хотелось бы увидеть без классов*/
 class ContextMenu {
     private menuItems:menuListItems;
     private requireMenu:HTMLElement;
@@ -57,6 +57,7 @@ class ContextMenu {
         this.requireMenu.appendChild(this.menu);
         this.addToggleToMenu(this.requireMenu);
     }
+    /* метод или свойства?*/
     private addToggleToMenu = (menu):void => {
         menu.onclick = ((e):void => {
             let target = <HTMLElement>e.target;
@@ -66,6 +67,7 @@ class ContextMenu {
             }
         });
     };
+    /*create + append хуже чем innerHTML*/
     private buildMenuTree = (menuItems: menuListItems): HTMLElement => {
         let menuContainer = document.createElement('nav');
         for (let item of menuItems) {

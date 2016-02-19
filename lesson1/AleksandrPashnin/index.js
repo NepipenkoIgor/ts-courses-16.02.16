@@ -44,6 +44,7 @@ var menuItems = [
         ]
     }
 ];
+/* no-shadowed-variable -> false либо по другому назвать*/
 function generateMenu(menuItems) {
     var menu = document.querySelector('.menu');
     // generate menu
