@@ -1,9 +1,9 @@
-.menu li.menu__with-submenu ul {
-    display: block;
+.menu li.menu__with-submenu > ul {
+    display: none;
 }
 
-.menu li.menu__with-submenu.closed > ul {
-    display: none;
+.menu li.menu__with-submenu.menu__expanded > ul {
+    display: block;
 }
 
 .menu li {
@@ -19,9 +19,9 @@
 }
 
 .menu li.menu__with-submenu > a:after {
-    content: '-';
+    content: '+';
 }
 
-.menu li.menu__with-submenu.closed > a:after {
-    content: '+';
+.menu li.menu__with-submenu.menu__expanded > a:after {
+    content: '-';
 }

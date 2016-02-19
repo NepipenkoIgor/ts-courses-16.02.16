@@ -45,7 +45,7 @@ var menu:typeof menuList = [{
 }
 ];
 
-const MENU_CLOSED:string = 'closed';
+const MENU_OPEN:string = 'menu__expanded';
 const MENU_WITH_SUBMENU:string = 'menu__with-submenu';
 
 const generateMenu = (list:typeof menuList):Element => {
@@ -56,7 +56,7 @@ const generateMenu = (list:typeof menuList):Element => {
         a.textContent = subList.title;
         li.appendChild(a);
         if (subList.items != null) {
-            li.className = `${MENU_WITH_SUBMENU} ${MENU_CLOSED}`;
+            li.className = MENU_WITH_SUBMENU;
             li.appendChild(generateMenu(subList.items));
         }
         ul.appendChild(li);
@@ -69,7 +69,7 @@ const ul:Element = generateMenu(menu);
 ul.addEventListener('click', (e:MouseEvent) => {
     const target = e.target as Element & {closest: (selector:string) => Element};
     const li = target.closest('li');
-    li.classList.toggle(MENU_CLOSED);
+    li.classList.toggle(MENU_OPEN);
 });
 
 documentFragment.appendChild(ul);
