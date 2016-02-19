@@ -1,11 +1,9 @@
-/* Styles go here */
-
-.menu li.menu__with-submenu ul {
-    display:none;
+.menu li.menu__with-submenu > ul {
+    display: none;
 }
 
-.menu li.menu__with-submenu.menu__active > ul {
-    display:block;
+.menu li.menu__with-submenu.menu__expanded > ul {
+    display: block;
 }
 
 .menu li {
@@ -23,6 +21,7 @@
 .menu li.menu__with-submenu > a:after {
     content: '+';
 }
-.menu li.menu__with-submenu.menu__active > a:after {
+
+.menu li.menu__with-submenu.menu__expanded > a:after {
     content: '-';
 }
