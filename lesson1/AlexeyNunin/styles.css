@@ -1,0 +1,22 @@
+* { box-sizing: border-box; }
+body, html {
+  font-family: Verdana, sans-serif;
+  font-size: 14px;
+}
+
+nav.menu a {
+  color: #666;
+}
+
+nav.menu > ul > li ul {
+  position: relative;
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: all .2s linear;
+}
+nav.menu > ul li.show > ul {
+  height: auto;
+  visibility: visible;
+  opacity: 1;
+}
