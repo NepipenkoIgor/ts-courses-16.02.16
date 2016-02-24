@@ -1,7 +1,6 @@
 /**
  * Created by Alexey on 19.02.2016.
  */
-var menuListType;
 var menuList = [
     {
         title: 'Животные', items: [

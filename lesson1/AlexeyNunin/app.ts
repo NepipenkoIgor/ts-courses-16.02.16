@@ -2,9 +2,9 @@
  * Created by Alexey on 19.02.2016.
  */
 
-var menuListType: { title:string, items?: typeof menuListType }[];
+type menuListType = { title:string, items?: menuListType }[];
 
-let menuList:typeof menuListType = [
+let menuList:menuListType = [
   {
     title: 'Животные', items: [
     {
@@ -47,7 +47,7 @@ menu.innerHTML = generateMenu(menuList);
 
 menu.addEventListener('click', toggleMenu, false);
 
-function generateMenu(list:typeof menuListType):string {
+function generateMenu(list:menuListType):string {
   let templateMenu:string = `<ul>`;
   for (let el of list) {
     templateMenu += `<li><a class="title" href="#">${el.title}</a>`;
