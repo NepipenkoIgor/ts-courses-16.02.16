@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "tslint": "3.3.0",
-    "typescript":"1.7.5"
+    "typescript": "1.7.5",
+    "whatwg-fetch": "0.11.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -4,3 +4,5 @@
 2. Реализуйте возможность отображение имени пользователя, которому пренадлежит фото
 `${this.uri}method=flickr.people.getInfo&
             api_key=${this.apiKey}&user_id=${photo.owner}&format=json&nojsoncallback=1`
+
+ библиотечка -> Q.all

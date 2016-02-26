@@ -1,0 +1,16 @@
+{
+  "name": "flickr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ts-loader": "0.8.1",
+    "tsd": "0.6.5",
+    "whatwg-fetch": "0.11.0"
+  }
+}
