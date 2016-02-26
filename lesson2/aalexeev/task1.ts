@@ -3,7 +3,9 @@
     Аргументы могут быть либо строкового либо числового типа. Количество их не ограничено
 */
 
-/** для чего generics*/
+/** 
+ * для чего generics
+ */
 type stringNum = string | number;
 
 function summator<T extends stringNum>(...elements:T[]): T;

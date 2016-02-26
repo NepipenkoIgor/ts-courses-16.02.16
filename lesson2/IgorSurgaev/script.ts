@@ -3,6 +3,9 @@ function summator(...args: number[]): number;
 function summator(...args: any[]): number {
     let sum:number = 0;
     for (let arg of args) {
+        /**
+         * желательно указывать систему исчисления
+         */
         sum += parseInt(arg);
     }
     return sum;
