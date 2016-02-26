@@ -1,0 +1,66 @@
+.menu li {
+    cursor:pointer;
+    list-style-type:none;
+}
+.menu li a {
+    display:block;
+    cursor:pointer;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+.menu li a:hover{
+    font-weight: 600;
+}
+
+.menu li.menu-open>a.title:before {
+    float: left;
+    content: "";
+    display: block;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 5px solid green;
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+.menu li a.title:before {
+    float: left;
+    content: "";
+    display: block;
+    border-top: 5px solid green;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    margin-top: 7px;
+    margin-right: 5px;
+}
+
+.menu ul li ul{
+    display:none;
+}
+.menu .menu-open>ul {
+    display:block;
+}
+
+.slider {
+    border-radius: 5px;
+    background: #E0E0E0;
+    background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
+    background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
+    background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+    width: 310px;
+    height: 15px;
+    margin: 5px;
+}
+
+.slider .pointer {
+    width: 10px;
+    height: 25px;
+    border-radius: 3px;
+    position: relative;
+    left: 10px;
+    top: -5px;
+    background: blue;
+    cursor: pointer;
+}
