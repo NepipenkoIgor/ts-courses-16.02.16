@@ -2,6 +2,8 @@
 1) Написать функцию summator(), которая суммирует переданные ей аргументы.
     Аргументы могут быть либо строкового либо числового типа. Количество их не ограничено
 */
+
+/** для чего generics*/
 type stringNum = string | number;
 
 function summator<T extends stringNum>(...elements:T[]): T;
