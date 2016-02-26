@@ -42,8 +42,8 @@ menu.innerHTML = generateMenu(menuList);
 menu.addEventListener('click', toggleMenu, false);
 function generateMenu(list) {
     var templateMenu = "<ul>";
-    for (var _i = 0; _i < list.length; _i++) {
-        var el = list[_i];
+    for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+        var el = list_1[_i];
         templateMenu += "<li><a class=\"title\" href=\"#\">" + el.title + "</a>";
         if (typeof el.items !== 'undefined') {
             templateMenu += generateMenu(el.items);
