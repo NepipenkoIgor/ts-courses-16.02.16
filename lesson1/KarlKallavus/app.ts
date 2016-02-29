@@ -42,11 +42,10 @@ function generateMenu(list: menuList): string {
     let z: string = `<ul>`;
     for (let a of list) {
         z += `<li><a class=title>${a.title}</a>`;
-        z += '<ul>';
         if (a.items) {
             z += generateMenu(a.items);
         }
-        z += `</li></ul>`
+        z += `</li>`
     }
     z += `</ul>`;
     return z;
