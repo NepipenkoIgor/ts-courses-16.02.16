@@ -1,5 +1,6 @@
-type menuList = Array<{title: string, items?: menuList}>
-let menu:menuList = [
+type TMenuList = {title:string, items?:TMenuList[]};
+
+let menuList:TMenuList[] = [
     {
         "title": "Животные",
         "items": [
@@ -62,18 +63,16 @@ let menu:menuList = [
     }
 ];
 
-function generateMenu(menu:menuList):string {
-    let menuHtml:string = `<ul>`;
+function generateMenu(menuList:TMenuList[]):string {
+    let menuHtml:string = `<ul class="list">`;
 
-    for (let menuItem of menu) { // {title: 'Birds', items: [...]}
-        let className = menuItem.items && 'title';
-        // Title
-        menuHtml += `<li><a class="${className}">${menuItem.title}</a>`;
+    for (let menuItem of menuList) {
 
-        // Items
-        if(menuItem.items) {
-            menuHtml += generateMenu(menuItem.items);
-        }
+        let className:string = !!menuItem.items ? 'title' : '';
+
+        menuHtml += `<li class="list__item"><a class="${className}">${menuItem.title}</a>`;
+
+        menuItem.items && (menuHtml += generateMenu(menuItem.items));
 
         menuHtml += '</li>';
     }
@@ -84,14 +83,21 @@ function generateMenu(menu:menuList):string {
 }
 
 
+let menuElem = document.getElementById('menu') as HTMLElement;
 
-let navMenu = <HTMLElement>document.querySelector('.menu');
-navMenu.innerHTML = generateMenu(menu);
-navMenu.onclick = (e:MouseEvent) => {
-    let el = <HTMLElement>e.target;
+menuElem.innerHTML = generateMenu(menuList);
+
+menuElem.onclick = (e:MouseEvent) => {
+
+    let el = e.target as HTMLElement;
+
     let classlList = el.classList;
+
     if (classlList.contains('title')) {
-        let parenLi = <HTMLElement>el.parentNode;
-        parenLi.classList.toggle('menu-open')
+
+        let parentLi = el.parentNode as HTMLElement;
+
+        parentLi.classList.toggle('opened');
+
     }
 };
