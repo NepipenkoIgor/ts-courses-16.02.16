@@ -60,6 +60,7 @@ interface IPhoto {
     username?:string;
 }
 
+/* need export */
 class FlickrApp {
     protected elem:HTMLElement;
     protected uri:string;
@@ -108,30 +109,29 @@ class FlickrApp {
             .then((response:Response):PromiseLike<any> => {
                 return response.json();
             }).then((result) => {
-                let ownersRequests = [];
+            let ownersRequests = [];
+/* let and  and don't use shadowed variable??*/
+            for (var photo of result.photos.photo) {
+                ownersRequests.push(
+                    new Promise((resolve, reject) => {
+                        fetch(new Request(`${this.uri}method=flickr.people.getInfo&api_key=${this.apiKey}&user_id=${photo.owner}&format=json&nojsoncallback=1`))
+                            .then((response:Response):PromiseLike<any> => {
+                                return response.json();
+                            }).then((result) => {
+                            resolve(result.person.username._content);
+                        });
+                    }));
+            }
 
-                for (var photo of result.photos.photo) {
-                    ownersRequests.push(
-                        new Promise((resolve, reject) =>
-                            {
-                                fetch(new Request(`${this.uri}method=flickr.people.getInfo&api_key=${this.apiKey}&user_id=${photo.owner}&format=json&nojsoncallback=1`))
-                                    .then((response:Response):PromiseLike<any> => {
-                                        return response.json();
-                                    }).then((result) => {
-                                        resolve(result.person.username._content);
-                                    });
-                            }));
-                    }
+            return Promise.all(ownersRequests).then((responses) => {
+                for (let i = 0; i < responses.length; i++) {
+                    result.photos.photo[i].username = responses[i];
+                }
 
-                return Promise.all(ownersRequests).then((responses) => {
-                    for (let i = 0; i < responses.length; i++) {
-                        result.photos.photo[i].username = responses[i];
-                    }
+                return result;
+            });
 
-                    return result;
-                });
-
-            }).then(cb);
+        }).then(cb);
     }
 }
 
