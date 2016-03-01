@@ -30,23 +30,24 @@ class Menu {
     }
 
     public toggle(className:string):void {
-        let list = document.getElementsByClassName(className);
+        let list:NodeListOf<Element> = document.getElementsByClassName(className);
         for (let i = 0; i < list.length; i++) {
             list[i].classList.toggle('menu-open');
         }
     }
 
     public open(className: string): void {
-        let list = document.getElementsByClassName(className);
+        let list: NodeListOf<Element> = document.getElementsByClassName(className);
         for (let i = 0; i < list.length; i++) {
             list[i].classList.add('menu-open');
         }
     }
 
     public close(className: string): void {
-        let list = document.getElementsByClassName(className);
-        for (let i = 0; i < list.length; i++) {
-            list[i].classList.remove('menu-open');
+        // ВОПРОС? Как тут корректно воспользоваться ES6 синтаксисом?
+        let list = [].slice.call(document.getElementsByClassName(className));
+        for (let elem of list) {
+            elem.classList.remove('menu-open');
         }
     }
 
