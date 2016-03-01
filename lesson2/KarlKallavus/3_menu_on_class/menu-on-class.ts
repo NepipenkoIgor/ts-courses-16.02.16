@@ -36,6 +36,20 @@ class Menu {
         }
     }
 
+    public open(className: string): void {
+        let list = document.getElementsByClassName(className);
+        for (let i = 0; i < list.length; i++) {
+            list[i].classList.add('menu-open');
+        }
+    }
+
+    public close(className: string): void {
+        let list = document.getElementsByClassName(className);
+        for (let i = 0; i < list.length; i++) {
+            list[i].classList.remove('menu-open');
+        }
+    }
+
     protected clickHandler(e:MouseEvent):void {
         let el = e.target as HTMLElement;
         let classList = el.classList;
