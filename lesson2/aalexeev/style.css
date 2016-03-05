@@ -12,6 +12,7 @@
     margin: 0 auto;
     border-top: 1px solid #999;
     position: relative;
+    margin-bottom: 100px;
 }
 
 .nav:after {
@@ -110,4 +111,64 @@
 
 .controls button:after {
     content: attr(data-target);
+}
+
+.slider {
+    padding: 50px;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.slider__area {
+    height: 4px;
+    background-color: #dadada;
+    border: 1px solid rgba(0,0,0,.3);
+    border-radius: 3px;
+    position: relative;
+}
+
+.slider__control {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(0,0,0,.25);
+    position: relative;
+    bottom: 15px;
+    margin-left: -15px;
+    background-color: #dadada;
+    box-shadow: 0 3px 5px rgba(0,0,0,.2);
+    color: #999;
+    cursor: pointer;
+    transition: color .2s, background .2s, border .2s, box-shadow .2s;
+}
+
+.slider__control:before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background: currentColor;
+}
+
+.slider__control:hover {
+    border-color: rgba(0,0,0,.4);
+    color: #777;
+}
+
+.slider__control:active,
+.slider__control.mod-active {
+    border-color: rgba(0,119,204,.2);
+    color: #0077cc;
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+
+.slider__control:active:before,
+.slider__control.mod-active:before {
+    box-shadow: 0 0 6px rgba(0,119,204,.75);
 }
