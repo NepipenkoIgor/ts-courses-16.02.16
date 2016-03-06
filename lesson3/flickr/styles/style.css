@@ -1,0 +1,17 @@
+.flikr-box .search-panel{
+    padding: 10px;
+}
+.flikr-box .image-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flikr-box .image-area .image-box {
+    width: 200px;
+}
+
+.flikr-box .image-area .image-box img {
+    width: 100%;
+}

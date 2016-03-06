@@ -3,7 +3,9 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
-        "sourceMap": true
+        "outDir": "",
+        "rootDir": ".",
+        "sourceMap": false
     },
     "exclude": [
         "node_modules"

@@ -1,0 +1,12 @@
+.menu ul ul {
+    display: none;
+}
+
+.menu .menu-open > ul {
+    display: block;
+}
+
+.menu a,
+.menu li {
+    cursor: pointer;
+}

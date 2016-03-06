@@ -1,7 +1,6 @@
-/**
- * Created by Alexey on 19.02.2016.
- */
-var menuList = [
+type menuList = Array<{ title: string, items?: menuList }>;
+
+let menuList:menuList = [
     {
         title: 'Животные', items: [
             {
@@ -36,27 +35,29 @@ var menuList = [
             },
         ]
     }
-];
-var menu = document.querySelector("[data-menu='toggle-menu']");
-menu.innerHTML = generateMenu(menuList);
-menu.addEventListener('click', toggleMenu, false);
-function generateMenu(list) {
-    var templateMenu = "<ul>";
-    for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
-        var el = list_1[_i];
-        templateMenu += "<li><a class=\"title\" href=\"#\">" + el.title + "</a>";
-        if (typeof el.items !== 'undefined') {
-            templateMenu += generateMenu(el.items);
+]
+
+
+function generateMenu(list: menuList): string {
+    let z: string = `<ul>`;
+    for (let a of list) {
+        z += `<li><a class=title>${a.title}</a>`;
+        if (a.items) {
+            z += generateMenu(a.items);
         }
-        templateMenu += "</li>";
+        z += `</li>`
     }
-    templateMenu += "</ul>";
-    return templateMenu;
+    z += `</ul>`;
+    return z;
 }
-function toggleMenu(e) {
-    e.preventDefault();
-    var item = e.target, parent = item.parentNode;
-    if (item.className === 'title') {
-        parent.classList.toggle('show');
+
+let navMenu = <HTMLElement>document.querySelector('.menu');
+navMenu.innerHTML = generateMenu(menuList);
+navMenu.onclick = (e: MouseEvent) => {
+    let el = <HTMLElement>e.target;
+    let classlList = el.classList;
+    if (classlList.contains('title')) {
+        let parenLi = <HTMLElement>el.parentNode;
+        parenLi.classList.toggle('menu-open')
     }
-}
+};
