@@ -9,7 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "ts-loader": "0.8.1",
+    "lodash": "^4.6.1",
+    "ts-loader": "^0.8.1",
     "tsd": "0.6.5",
     "whatwg-fetch": "0.11.0"
   }

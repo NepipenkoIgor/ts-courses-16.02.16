@@ -1,30 +1,29 @@
-/**
- * Created by igor on 2/26/16.
- */
 
 /// <reference path="../typings/tsd.d.ts" />
-interface Headers {
-    append:(name:string, value:string) => void;
-    delete:(name:string) => void;
-    getAll:(name:string) => string[];
-    entries:() => {
-        key:string,
-        value:string
-    }[];
-}
 
+interface Headers {
+    append:(name:string, value:string)=>void;
+    delete:(name:string)=>void;
+    getAll:(name:string)=>string[];
+    entries:()=>{
+        key:string;
+        value:string;
+    }[]
+}
 
 interface Request {
     method:string;
-    headers: string| Headers;
-    mode:string;
-    cache:string;
-    redirect:any;
-    clone:() => Request;
+    headers: string | Headers;
+    mode: string;
+    cache: string;
+    redirect: any;
+    clone:()=> Request;
 }
+
 interface InitRequest {
     url:string;
 }
+
 
 declare var Request:{
     prototype:Request;
@@ -32,42 +31,43 @@ declare var Request:{
 };
 
 interface Response {
-    arrayBuffer:() => PromiseLike<ArrayBuffer>;
-    blob:() => PromiseLike<Blob>;
-    formData:() => PromiseLike<FormData>;
+    arrayBuffer:()=>PromiseLike<ArrayBuffer>;
+    blob:()=>PromiseLike<Blob>;
+    formData:()=>PromiseLike<FormData>;
     json:() => PromiseLike<any>;
 }
 
 declare function fetch(input:string| Request):PromiseLike<Response>;
 
 type opt = {
-    elem:HTMLElement,
-    uri:string,
-    queryMethod:string,
-    apiKey:string
+    elem: HTMLElement,
+    uri: string,
+    queryMethod: string,
+    apiKey: string
 }
 
 interface IPhoto {
-    farm:number;
-    id:string;
-    isfamily:string;
-    isfriend:string;
-    ispublic:number;
-    owner:string;
-    title:string;
-    server:string;
-    secret:string;
+    farm: number;
+    id: string;
+    isfamily: string;
+    isfriend: string;
+    ispublic: number;
+    owner: string;
+    title: string;
+    server: string;
+    secret: string;
 }
-export class FlickrApp {
-    protected elem:HTMLElement;
-    protected uri:string;
-    protected queryMethod:string;
-    protected apiKey:string;
-    protected input:HTMLInputElement;
-    protected imagesBox:HTMLDivElement;
-    protected searchButton:HTMLButtonElement;
 
-    constructor(opt:opt) {
+export class FlickrApp {
+    protected elem: HTMLElement;
+    protected uri: string;
+    protected queryMethod: string;
+    protected apiKey: string;
+    protected input: HTMLInputElement;
+    protected imagesBox: HTMLDivElement;
+    protected searchButton: HTMLButtonElement;
+
+    constructor(opt: opt) {
         let {elem, uri, queryMethod, apiKey} = opt;
         this.elem = elem;
         this.uri = uri;
@@ -81,28 +81,27 @@ export class FlickrApp {
 
     protected render(body:any):void {
         let content = ``;
-        for (let photo of body.photos.photo) {
+        console.log(body.photos.photo);
+        for(let photo of body.photos.photo) {
             content += `<div  class='image-box'>
             <img src='https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg' />
             <p>${photo.title}</p>
             </div>`;
+            this.imagesBox.innerHTML = content;
         }
-        this.imagesBox.innerHTML = content;
     }
 
-    protected search(cb:(body:any) => any):void {
+    protected search(cb:(body:any)=>any):void {
         let text = this.input.value;
         let url = new Request(`${this.uri}method=${this.queryMethod}&
         api_key=${this.apiKey}&text=${text}&page=1&format=json&nojsoncallback=1`);
         this.getPhotos(url, cb);
     }
 
-    protected getPhotos(input:string| Request, cb:(body:any) => any) {
+    protected getPhotos(input:string | Request, cb:(body:any)=>any) {
         fetch(input)
-            .then((response:Response):PromiseLike<any> => {
-                return response.json();
-            }).then(cb);
+            .then((response:Response):PromiseLike<any>=>{
+            return response.json()
+        }).then(cb);
     }
-
 }
-
