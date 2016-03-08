@@ -81,14 +81,16 @@ export class FlickrApp {
 
     protected render(body:any):void {
         let content = ``;
-        console.log(body.photos.photo);
-        for(let photo of body.photos.photo) {
+        const arr = _.sortBy(body.photos.photo, (photo:IPhoto)=>photo.title);
+        for(let photo of arr) {
             content += `<div  class='image-box'>
             <img src='https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg' />
             <p>${photo.title}</p>
             </div>`;
             this.imagesBox.innerHTML = content;
         }
+
+        this.searchButton.disabled = false;
     }
 
     protected search(cb:(body:any)=>any):void {
@@ -99,6 +101,7 @@ export class FlickrApp {
     }
 
     protected getPhotos(input:string | Request, cb:(body:any)=>any) {
+        this.searchButton.disabled = true;
         fetch(input)
             .then((response:Response):PromiseLike<any>=>{
             return response.json()
