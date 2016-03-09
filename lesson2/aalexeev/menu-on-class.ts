@@ -2,7 +2,24 @@ type menu = { title:string, link?:string, items?:menu}[];
 
 type menuOpt = {element:HTMLElement, menuList:menu};
 
-class Menu {
+/**
+ * подключи и используй tslint в своем редакторе
+ */
+
+/**
+ * хорошо бы было использовать interface что бы описать публичные методы
+ */
+interface IMenu {
+    getElem:() => HTMLElement;
+    toggle:(selector:string) => void;
+    open:(selector:string) => void;
+    close:(selector:string) => void;
+}
+/**
+ * и имплиментируй его
+ */
+
+class Menu implements IMenu {
     protected element:HTMLElement;
     protected menuList:menu;
 
@@ -33,9 +50,9 @@ class Menu {
                 z += `</li>`;
                 continue;
             }
-            z += this.generateMenu(a.items) + `</li>`
+            z += this.generateMenu(a.items) + `</li>`;
         }
-        return z + `</ul>`
+        return z + `</ul>`;
     }
 
     protected getNodeTree(name:string):HTMLElement[] {
@@ -94,7 +111,7 @@ class Menu {
         elem.classList.remove('mod-open');
         const childNodes = elem.querySelectorAll('.item.mod-open') as HTMLCollection;
         for (let i = childNodes.length - 1; i >= 0; i--) {
-        	this.closeNode(childNodes[i] as HTMLElement);
+            this.closeNode(childNodes[i] as HTMLElement);
         }
     }
 
@@ -105,7 +122,7 @@ class Menu {
 
     public toggle(selector:string):void {
         const node = this.getNode(selector);
-        //this.toggleNode(node);
+        // this.toggleNode(node);
         if (node && node.classList.contains('mod-open')) {
             this.closeNodeInDepth(node);
         } else {
@@ -168,11 +185,11 @@ const controls = document.getElementById('controls') as HTMLElement;
 const renderedMenu = new Menu({element: menuContainer, menuList: menu});
 
 for (let i = controls.children.length - 1; i >= 0; i--) {
-	let btn = controls.children[i];
+    let btn = controls.children[i];
     btn.addEventListener('click', (ev:MouseEvent):void => {
         ev.preventDefault();
         const elem = ev.target as HTMLElement;
-        let {method, target}= elem.dataset;
+        let {method, target} = elem.dataset;
         if (renderedMenu[method]) {
             renderedMenu[method](target);
         }
