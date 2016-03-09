@@ -56,6 +56,7 @@ interface IPhoto {
     title: string;
     server: string;
     secret: string;
+    user?: string;
 }
 
 export class FlickrApp {
@@ -81,11 +82,12 @@ export class FlickrApp {
 
     protected render(body:any):void {
         let content = ``;
-        const arr = _.sortBy(body.photos.photo, (photo:IPhoto)=>photo.title);
+        const arr = _.sortBy(body, (photo:IPhoto):string=>photo.title);
         for(let photo of arr) {
             content += `<div  class='image-box'>
             <img src='https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg' />
-            <p>${photo.title}</p>
+            <p><em>${photo.title || 'notitle'}</em></p>
+            <p>${photo.user || 'nonamed'}</p>
             </div>`;
             this.imagesBox.innerHTML = content;
         }
@@ -96,7 +98,7 @@ export class FlickrApp {
     protected search(cb:(body:any)=>any):void {
         let text = this.input.value;
         let url = new Request(`${this.uri}method=${this.queryMethod}&
-        api_key=${this.apiKey}&text=${text}&page=1&format=json&nojsoncallback=1`);
+        api_key=${this.apiKey}&text=${text}&per_page=20&page=1&format=json&nojsoncallback=1`);
         this.getPhotos(url, cb);
     }
 
@@ -104,7 +106,23 @@ export class FlickrApp {
         this.searchButton.disabled = true;
         fetch(input)
             .then((response:Response):PromiseLike<any>=>{
-            return response.json()
-        }).then(cb);
+                return response.json();
+            // [AA]: как правильно определить data?
+            }).then((data):PromiseLike<any>=>{
+                const photos = data.photos.photo;
+                const promiseArray = photos.map((photo:IPhoto):PromiseLike<any>=>{
+                    let url = new Request(`${this.uri}method=flickr.people.getInfo&
+                    api_key=${this.apiKey}&user_id=${photo.owner}&format=json&nojsoncallback=1`);
+                    return fetch(url).then(res => {
+                        return res.json();
+                    });
+                });
+                const allPromises = Q.all(promiseArray).then((res:any):PromiseLike<any>=> {
+                    return (photos.map((photo, index)=>{
+                        return _.assign(photo, {user: res[index].person.realname ? res[index].person.realname._content : ''});
+                    }));
+                });
+                return allPromises;
+            }).then(cb);
     }
 }
