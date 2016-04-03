@@ -11,7 +11,7 @@
  */
 
 type menuListType = { title:string, items?:menuListType }[];
-type menuOptions = { element:HTMLElement };
+//type menuOptions = { element:HTMLElement };
 
 /**
  * тут не вижу описание публичных методов, которые в заданиии
@@ -23,6 +23,9 @@ interface IMenu {
     menuList:menuListType;
     menuBlock:HTMLElement;
     getElem():void;
+    toggle(e:MouseEvent):void;
+    open(e:MouseEvent):void;
+    close(e:MouseEvent):void;
 }
 
 class Menu implements IMenu {
@@ -30,45 +33,11 @@ class Menu implements IMenu {
      * menuList надо передавать как параметр в класс, а ты жестко вшил его
      * Я хочу использовать твой класс со своими пунктами но не могу
      */
-    public menuList:menuListType = [
-        {
-            title: 'Животные', items: [
-            {
-                title: 'Млекопитающие', items: [
-                {title: 'Коровы'},
-                {title: 'Ослы'},
-                {title: 'Собаки'},
-                {title: 'Тигры'}
-            ]
-            },
-            {
-                title: 'Другие', items: [
-                {title: 'Змеи'},
-                {title: 'Птицы'},
-                {title: 'Ящерицы'},
-            ],
-            },
-        ]
-        },
-        {
-            title: 'Рыбы', items: [
-            {
-                title: 'Аквариумные', items: [
-                {title: 'Гуппи'},
-                {title: 'Скалярии'}
-            ]
-            },
-            {
-                title: 'Форель', items: [
-                {title: 'Морская форель'}
-            ]
-            },
-        ]
-        }
-    ];
+    public menuList:menuListType;
     public menuBlock:HTMLElement;
 
-    constructor(options:menuOptions) {
+    constructor(options:any) {
+        this.menuList  = options.menuList;
         this.menuBlock = options.element as HTMLElement;
         this.menuBlock.innerHTML = this._generateMenu(this.menuList);
     }
@@ -77,12 +46,30 @@ class Menu implements IMenu {
         console.log(this.menuBlock);
     }
 
-    public toggle(e:MouseEvent) {
+    public toggle(e:MouseEvent):void {
         e.preventDefault();
         let item = e.target as HTMLElement,
             parent = item.parentNode as HTMLElement;
         if (item.className === 'title') {
             parent.classList.toggle('show');
+        }
+    }
+
+    public close(e:MouseEvent):void {
+        e.preventDefault();
+        let items = this.menuBlock.querySelectorAll(`li.show`) as HTMLCollection;
+        if (!items) return;
+        for (let i = 0; i < items.length; i++) {
+            items[i].classList.remove('show');
+        }
+    }
+
+    public open(e:MouseEvent):void {
+        e.preventDefault();
+        let items = this.menuBlock.querySelectorAll(`li:not(.show)`) as HTMLCollection;
+        if (!items) return;
+        for (let i = 0; i < items.length; i++) {
+            items[i].classList.add('show');
         }
     }
 
@@ -101,15 +88,58 @@ class Menu implements IMenu {
 
 }
 
+let menuList:menuListType = [
+    {
+        title: 'Животные', items: [
+        {
+            title: 'Млекопитающие', items: [
+            {title: 'Коровы'},
+            {title: 'Ослы'},
+            {title: 'Собаки'},
+            {title: 'Тигры'}
+        ]
+        },
+        {
+            title: 'Другие', items: [
+            {title: 'Змеи'},
+            {title: 'Птицы'},
+            {title: 'Ящерицы'},
+        ],
+        },
+    ]
+    },
+    {
+        title: 'Рыбы', items: [
+        {
+            title: 'Аквариумные', items: [
+            {title: 'Гуппи'},
+            {title: 'Скалярии'}
+        ]
+        },
+        {
+            title: 'Форель', items: [
+            {title: 'Морская форель'}
+        ]
+        },
+    ]
+    }
+];
 let elementMenu = document.querySelector(`[data-menu='toggle-menu']`) as HTMLElement;
 let btnGetElem = document.querySelector(`[data-action='get-elem']`) as HTMLElement;
+let btnToggle = document.querySelector(`[data-action='toggle']`) as HTMLElement;
+let btnOpen = document.querySelector(`[data-action='open']`) as HTMLElement;
+let btnClose = document.querySelector(`[data-action='close']`) as HTMLElement;
 
 let menu = new Menu({
-    element: elementMenu
+    element: elementMenu,
+    menuList: menuList
 });
 
 btnGetElem.addEventListener('click', menu.getElem.bind(menu));
 elementMenu.addEventListener('click', menu.toggle.bind(menu));
+btnToggle.addEventListener('click', menu.toggle.bind(menu));
+btnOpen.addEventListener('click', menu.open.bind(menu));
+btnClose.addEventListener('click', menu.close.bind(menu));
 
 /**
  1) Написать функцию summator(), которая суммирует переданные ей аргументы.
@@ -120,14 +150,16 @@ elementMenu.addEventListener('click', menu.toggle.bind(menu));
 * 
 * Здесь использование generics можно, но лучше не усложнять и написать 
 */
-type TSum = string|number;
-function summator(...arr:TSum[]):TSum {
+//type TSum = string|number;
+function summator(...arr:number[]):number;
+function summator(...arr:string[]):string;
+function summator(...arr:any[]):any {
     let result;
     /**
      * не забывай писать типы
      * как я добавил ниже и для аргументов и для возвращаемого значения
      */
-    result = arr.reduce((prev:TSum, curr:TSum):TSum => {
+    result = arr.reduce((prev, curr) => {
         return prev + curr;
     })
     return result;
