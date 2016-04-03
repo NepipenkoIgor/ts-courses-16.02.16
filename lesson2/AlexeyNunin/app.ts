@@ -159,7 +159,7 @@ function summator(...arr:any[]):any {
      * не забывай писать типы
      * как я добавил ниже и для аргументов и для возвращаемого значения
      */
-    result = arr.reduce((prev, curr) => {
+    result = arr.reduce((prev:any, curr:any):any => {
         return prev + curr;
     })
     return result;
