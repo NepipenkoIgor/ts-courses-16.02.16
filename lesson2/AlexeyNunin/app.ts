@@ -46,6 +46,25 @@ class Menu implements IMenu {
         console.log(this.menuBlock);
     }
 
+    /***
+     * красиво разбил, довольно маленькие методы
+     * Но нужно решить другую задачу было
+     * 
+     * Публичные методы должны принимать селекотор 
+     * 
+     * Метод
+     *   public open(listName:string):void {
+        this.element.querySelector(`.${listName}`).classList.add('menu-open');
+        }
+     * 
+     * привязываю к ктопке
+     * document.querySelector('.button-open').addEventListener('click', () => {
+        menu2.open.call(menu2, 'list-1');
+        });
+     
+     тоесть я, например, сделал для каждого меню атрибуты class  -> list-1, list-2.....
+     и теперь могу испльзовать его как селектор
+     * */
     public toggle(e:MouseEvent):void {
         e.preventDefault();
         let item = e.target as HTMLElement,
